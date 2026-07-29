@@ -1,4 +1,4 @@
-# Machine Learning, Deep Learning, RL & Generative AI Portfolio
+# Machine Learning, Deep Learning, RL & Generative AI
 
 A comprehensive collection of 9 end-to-end Machine Learning, Computer Vision, Reinforcement Learning, Deployment, and Generative AI (RAG) projects.
 
