@@ -3,7 +3,7 @@ services:
     name: adult-income-api
     env: python
     rootDir: Project_08_render_deployment
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python train.py
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
