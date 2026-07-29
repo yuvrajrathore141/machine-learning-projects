@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
-from typing import Dict, Any
+from pydantic import BaseModel, Field, ConfigDict
+from typing import Dict, Any, Union
 import joblib
 import pandas as pd
 from pathlib import Path
@@ -40,6 +40,8 @@ def startup_event():
     get_model()
 
 class IncomeFeatureInput(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     age: int = 37
     workclass: str = "Private"
     fnlwgt: int = 22245
@@ -54,9 +56,6 @@ class IncomeFeatureInput(BaseModel):
     capital_loss: int = Field(0, alias="capital-loss")
     hours_per_week: int = Field(40, alias="hours-per-week")
     native_country: str = Field("Outlying-US(Guam-USVI-etc)", alias="native-country")
-
-    class Config:
-        populate_by_name = True
 
 @app.get("/")
 def root():
@@ -78,27 +77,27 @@ def health_check():
     }
 
 @app.post("/predict")
-def predict(payload: IncomeFeatureInput):
+def predict(payload: Dict[str, Any]):
     m = get_model()
     if m is None:
         raise HTTPException(status_code=500, detail="Model is not loaded.")
     
     try:
         input_dict = {
-            "age": payload.age,
-            "workclass": str(payload.workclass),
-            "fnlwgt": payload.fnlwgt,
-            "education": str(payload.education),
-            "education-num": payload.education_num,
-            "marital-status": str(payload.marital_status),
-            "occupation": str(payload.occupation),
-            "relationship": str(payload.relationship),
-            "race": str(payload.race),
-            "sex": str(payload.sex),
-            "capital-gain": payload.capital_gain,
-            "capital-loss": payload.capital_loss,
-            "hours-per-week": payload.hours_per_week,
-            "native-country": str(payload.native_country)
+            "age": int(payload.get("age", 37)),
+            "workclass": str(payload.get("workclass", "Private")),
+            "fnlwgt": int(payload.get("fnlwgt", 22245)),
+            "education": str(payload.get("education", "Some-college")),
+            "education-num": int(payload.get("education-num", payload.get("education_num", 10))),
+            "marital-status": str(payload.get("marital-status", payload.get("marital_status", "Divorced"))),
+            "occupation": str(payload.get("occupation", "Sales")),
+            "relationship": str(payload.get("relationship", "Not-in-family")),
+            "race": str(payload.get("race", "White")),
+            "sex": str(payload.get("sex", "Male")),
+            "capital-gain": int(payload.get("capital-gain", payload.get("capital_gain", 0))),
+            "capital-loss": int(payload.get("capital-loss", payload.get("capital_loss", 0))),
+            "hours-per-week": int(payload.get("hours-per-week", payload.get("hours_per_week", 40))),
+            "native-country": str(payload.get("native-country", payload.get("native_country", "Outlying-US(Guam-USVI-etc)")))
         }
         
         df = pd.DataFrame([input_dict])
