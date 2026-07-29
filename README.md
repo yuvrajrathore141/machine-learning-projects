@@ -6,7 +6,7 @@ A comprehensive collection of 9 end-to-end Machine Learning, Computer Vision, Re
 
 ## 📁 Repository Overview
 
-Each project is self-contained within its own folder, complete with data preprocessing, model development, evaluation, and visualizations.
+Each project is self-contained within its own directory, complete with data preprocessing, model development, evaluation metrics, and visualizations.
 
 ```
 .
@@ -69,6 +69,7 @@ Each project is self-contained within its own folder, complete with data preproc
 
 ### 8. [Project 08 - End-to-End Render Deployment Microservice](./Project_08_render_deployment/)
 - **Problem Statement**: Package and deploy a trained Income Classification ML pipeline as a production web service on Render.
+- **Live Service URL**: [https://adult-income-api-6av7.onrender.com](https://adult-income-api-6av7.onrender.com)
 - **Dataset**: UCI Adult Income dataset.
 - **Tech Stack**: FastAPI, Uvicorn, Scikit-learn, Pydantic, Docker, Render, Pytest/TestClient.
 - **Key Features**: REST API with `/health` and `/predict` endpoints, `model.joblib` pipeline serialization, `render.yaml` Infrastructure-as-Code blueprint, `Procfile`, and `Dockerfile`.
@@ -85,8 +86,8 @@ Each project is self-contained within its own folder, complete with data preproc
 
 1. **Clone the repository**:
    ```bash
-   git clone <your-repository-url>
-   cd <repository-folder>
+   git clone https://github.com/yuvrajrathore141/machine-learning-projects.git
+   cd machine-learning-projects
    ```
 
 2. **Create a virtual environment**:
@@ -105,7 +106,13 @@ Each project is self-contained within its own folder, complete with data preproc
 
 ---
 
-## 🚀 Running Project 08 FastAPI Service Locally
+## 🌐 Live Microservice Deployment (Project 08)
+
+The Project 08 FastAPI Income Classification microservice is deployed live on Render:
+- **Base Endpoint & Health**: [https://adult-income-api-6av7.onrender.com/health](https://adult-income-api-6av7.onrender.com/health)
+- **Interactive Swagger API Docs**: [https://adult-income-api-6av7.onrender.com/docs](https://adult-income-api-6av7.onrender.com/docs)
+
+### Running Project 08 Service Locally
 
 ```bash
 cd Project_08_render_deployment
